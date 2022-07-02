@@ -47,7 +47,7 @@ download: 16.806320 Mbps
 ## Direct Usage
 ```console
 
-$ go run cmd/speedtest.go --help
+$ ./bin/speedtest --help
 usage: speedtest [<flags>] <provider>
 
 Flags:
@@ -57,3 +57,11 @@ Args:
   <provider>  Provider to perform a speed test with. Should be either 'ookla' or 'netflix'.
 
 ```
+
+## Make Usage
+- `make build`: builds `speedtest` executable file and places it into `./bin/`
+- `make test-unit`: runs unit tests
+- `make test-benchmark`: runs benchmarks
+- `make test-unit-coverage`: calculates unit tests coverage
+- `make lint`: runs linters
+- `make fix-lint`: fixes linters errors
