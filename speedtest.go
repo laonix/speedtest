@@ -2,6 +2,7 @@ package speedtest
 
 import (
 	"fmt"
+
 	prov "github.com/laonix/speedtest/provider"
 )
 
@@ -9,7 +10,7 @@ import (
 type SpeedtestRunner interface {
 
 	// Run performs a speed test via designated provider.
-	Run(provider string) (*prov.Result, error)
+	Run(providerName string) (*prov.Result, error)
 }
 
 // DefaultRunner is a default implementation of SpeedtestRunner.
@@ -29,8 +30,8 @@ func NewRunner() *DefaultRunner {
 // - 'ookla' for https://www.speedtest.net/
 //
 // - 'netflix' for https://fast.com/.
-func (r *DefaultRunner) Run(provider string) (*prov.Result, error) {
-	p, err := r.f.GetProvider(provider)
+func (r *DefaultRunner) Run(providerName string) (*prov.Result, error) {
+	p, err := r.f.GetProvider(providerName)
 	if err != nil {
 		return nil, fmt.Errorf("get provider: %s", err)
 	}

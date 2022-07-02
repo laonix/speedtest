@@ -1,6 +1,8 @@
 package speedtest
 
-import "testing"
+import (
+	"testing"
+)
 
 // benchmarks
 
