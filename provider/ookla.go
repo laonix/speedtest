@@ -7,10 +7,12 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
+// Ookla is an implementation of Provider running speed tests via https://www.speedtest.net/.
 type Ookla struct {
 	target *ookla.Server
 }
 
+// NewOokla returns a new instance of Ookla.
 func NewOokla() (*Ookla, error) {
 	target, err := getTargetServer()
 	if err != nil {
@@ -20,6 +22,7 @@ func NewOokla() (*Ookla, error) {
 	return &Ookla{target: target}, nil
 }
 
+// getTargetServer returns only the first server from a fetched available speed test servers list.
 func getTargetServer() (*ookla.Server, error) {
 	user, err := ookla.FetchUserInfo()
 	if err != nil {
@@ -31,9 +34,12 @@ func getTargetServer() (*ookla.Server, error) {
 		return nil, fmt.Errorf("fetch servers: %s", err)
 	}
 
+	// we are using only the first server
 	return serverList[0], nil
 }
 
+// RunSpeedTest performs a speed test via https://www.speedtest.net/
+// and returns download and upload speed within a result.
 func (o *Ookla) RunSpeedTest() (*Result, error) {
 	eg := errgroup.Group{}
 

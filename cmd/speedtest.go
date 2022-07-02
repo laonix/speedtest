@@ -5,22 +5,26 @@ import (
 	"log"
 
 	"github.com/laonix/speedtest"
+
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 var (
-	flagProvider = kingpin.Arg(
+	provider = kingpin.Arg(
 		"provider",
-		"Provider to perform a speed test with. Should be either 'ookla' or 'netflix'",
-	).Required().String()
+		"Provider to perform a speed test with. Should be either 'ookla' or 'netflix'.",
+	).Required().Enum("ookla", "netflix")
 )
 
 func main() {
 	kingpin.Parse()
 
-	result, err := speedtest.Run(*flagProvider)
+	runner := speedtest.NewRunner()
+
+	result, err := runner.Run(*provider)
 	if err != nil {
 		log.Fatal("speedtest: ", err)
 	}
+
 	fmt.Println(result)
 }
